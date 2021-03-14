@@ -1,3 +1,3 @@
-module github.com/techbranch/glassnode
+module github.com/tech-branch/glassnode
 
 go 1.15
