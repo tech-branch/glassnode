@@ -19,14 +19,14 @@ import (
 func main() {
 	apisample := glassnode.NewClient("your_api_key")
 
-    yesterday := glassnode.YesterdayTimestamp()
+	yesterday := glassnode.YesterdayTimestamp()
 
 	opts := glassnode.APIOptionsList{
-		Asset:     "BTC",            // or "ETH"
-		Category:  "indicators",      // market, derivatives etc
-		Metric:    "sopr",           // or "nupl"
-		Since:     yesterday,        // UNIX timestamp, 0 means all
-		Until:     0,                // UNIX timestamp, 0 means all
+		Asset:    "BTC",        // or "ETH"
+		Category: "indicators", // market, derivatives etc
+		Metric:   "sopr",       // or "nupl"
+		Since:    yesterday,    // UNIX timestamp, 0 means all
+		Until:    0,            // UNIX timestamp, 0 means all
 	}
 
 	d, err := glassnode.GetMetricData(context.Background(), *apisample, &opts)
