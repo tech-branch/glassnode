@@ -160,3 +160,30 @@ func Test_liveintegration_directmappings(t *testing.T) {
 		t.Log(time.Unix(e[i].Time, 0))
 	}
 }
+
+func Test_constructURL(t *testing.T) {
+
+	apisample := NewClient("x")
+
+	opts := APIOptionsList{
+		Asset:    "BTC",
+		Category: "indicators",
+		Metric:   "difficulty_ribbon",
+		DirectMapping: map[string]string{
+			"s": "123",
+			"u": "456",
+		},
+	}
+	expectation := "https://api.glassnode.com/v1/metrics/indicators/difficulty_ribbon?a=BTC&api_key=x&s=123&u=456"
+	result, err := constructURL(*apisample, &opts)
+
+	if err != nil {
+		t.Fail()
+	}
+
+	if expectation != result {
+		t.Logf("Result: %s didn't match expectation: %s", result, expectation)
+		t.Fail()
+	}
+
+}
