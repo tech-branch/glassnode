@@ -16,7 +16,7 @@ func constructURL(api Client, options *APIOptionsList) (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("[GetMetricData] couldn't parse url: %s", err.Error())
 	}
-	baseURL.Path += path.Join(baseURL.Path, MetricsPrefix)
+	baseURL.Path = path.Join(baseURL.Path, MetricsPrefix)
 
 	// -------------
 	// Data Category
@@ -25,7 +25,7 @@ func constructURL(api Client, options *APIOptionsList) (string, error) {
 	if options.Category == "" {
 		return "", fmt.Errorf("APIOptionsList.Category appears to be empty but is required")
 	}
-	baseURL.Path += path.Join(baseURL.Path, options.Category)
+	baseURL.Path = path.Join(baseURL.Path, options.Category)
 
 	// ---------------
 	// Specific metric
@@ -34,7 +34,7 @@ func constructURL(api Client, options *APIOptionsList) (string, error) {
 	if options.Metric == "" {
 		return "", fmt.Errorf("APIOptionsList.Metric appears to be empty but is required")
 	}
-	baseURL.Path += path.Join(baseURL.Path, options.Metric)
+	baseURL.Path = path.Join(baseURL.Path, options.Metric)
 
 	finalParams, err := makeParams(api.apiKey, options)
 	if err != nil {
