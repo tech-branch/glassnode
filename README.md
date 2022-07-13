@@ -1,3 +1,5 @@
+![live tests](https://github.com/tech-branch/glassnode/actions/workflows/test.yml/badge.svg)
+
 ### What's that?
 
 API wrapper for Glassnode on-chain market intelligence data
@@ -118,3 +120,11 @@ opts := APIOptionsList{
 ```
 
 Please see the tests file for complete examples.
+
+### Tests
+
+Live tests will skip if there's no API key in the env vars.
+
+```
+export GLASSNODE_API_KEY=yourapikeygoeshere
+```
