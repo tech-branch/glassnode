@@ -2,8 +2,8 @@ package glassnode
 
 import (
 	"context"
+	"os"
 	"testing"
-	"time"
 )
 
 func Test_tvconv(t *testing.T) {
@@ -88,8 +88,8 @@ func Test_toconv(t *testing.T) {
 }
 
 func Test_liveintegration(t *testing.T) {
-	apik := "x"
-	if apik == "x" {
+	apik := os.Getenv("GLASSNODE_API_KEY")
+	if apik == "" {
 		t.Log("live API Key is required for this test")
 		t.SkipNow()
 	}
@@ -114,15 +114,15 @@ func Test_liveintegration(t *testing.T) {
 
 	e := d.([]TimeValue)
 
-	for i := 0; i < len(e); i++ {
-		t.Logf("%f\n", e[i].Value)
-		t.Log(time.Unix(e[i].Time, 0))
+	if e[0].Value > 2 || e[0].Value < 0 {
+		t.Log("SOPR should be between 0 and 2")
+		t.Fail()
 	}
 }
 
 func Test_liveintegration_directmappings(t *testing.T) {
-	apik := "x"
-	if apik == "x" {
+	apik := os.Getenv("GLASSNODE_API_KEY")
+	if apik == "" {
 		t.Log("live API Key is required for this test")
 		t.SkipNow()
 	}
@@ -153,11 +153,6 @@ func Test_liveintegration_directmappings(t *testing.T) {
 	if e[0].Options["ma9"] < 100 {
 		t.Logf("ma9 val should be greater than %f but is %f", 100.0, e[0].Options["ma9"])
 		t.Fail()
-	}
-
-	for i := 0; i < len(e); i++ {
-		t.Logf("%f\n", e[i].Options["ma9"])
-		t.Log(time.Unix(e[i].Time, 0))
 	}
 }
 
